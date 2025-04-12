@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Start frontend",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"]
+    },
+    {
+      "name": "Start backend",
+      "type": "debugpy",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/backend",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--reload"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start VALI",
+      "configurations": ["Start frontend", "Start backend"]
+    }
+  ]
+}
