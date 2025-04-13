@@ -5,10 +5,10 @@ from pathlib import Path
 
 
 def create_virtual_environment():
-    virtual_environment_directory: Path = Path(".venv")
+    virtual_environment_directory = Path(".venv")
     if not virtual_environment_directory.exists():
         run([executable, "-m", "venv", str(virtual_environment_directory)])
-        python_executable: Path = (
+        python_executable = (
             virtual_environment_directory
             / ("Scripts" if name == "nt" else "bin")
             / "python"

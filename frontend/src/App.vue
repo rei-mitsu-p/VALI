@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ninja from "./assets/ninja.svg";
-import InfoMsg from "./components/InfoMsg.vue";
+import ninja from "@/assets/ninja.svg";
+import InfoMsg from "@/components/InfoMsg.vue";
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import InfoMsg from "./components/InfoMsg.vue";
       <img src="/img/squid.svg" class="logo blue-shadow" />
     </a>
     <img :src="ninja" class="logo red-shadow" />
-    <InfoMsg msg="VALI TOP" />
+    <InfoMsg title="VALI TOP" />
   </div>
 </template>
 

@@ -43,3 +43,13 @@
   cd backend
   python startup.py
   ```
+
+### Env
+
+- frontend
+
+  - VITE_API_URL : backend's domain
+
+- backend
+
+  - FRONT_URL : frontend's domain
