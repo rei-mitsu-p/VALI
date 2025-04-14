@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.settings import FRONT_URL
+from app.routes.router import router
 
 app = FastAPI(title="VALI API")
 app.add_middleware(
@@ -9,8 +10,4 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
 )
-
-
-@app.get("/", summary="TOP画面表示用メッセージ取得API", tags=["TOP"])
-async def top_message():
-    return {"message": "Welcome to VALI!"}
+app.include_router(router)

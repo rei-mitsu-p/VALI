@@ -9,9 +9,13 @@
   - typescript
 
 - backend
+
   - Python 3.x
   - venv
   - FastAPI
+
+- database
+  - Redis
 
 ### Set up
 
@@ -53,3 +57,7 @@
 - backend
 
   - FRONT_URL : frontend's domain
+  - REDIS_HOST : Redis's host
+  - REDIS_PORT : Redis's port
+  - REDIS_USERNAME : Redis's username
+  - REDIS_PASSWORD : Redis's password
