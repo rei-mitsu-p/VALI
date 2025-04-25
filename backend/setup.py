@@ -1,17 +1,15 @@
 from os import name
+from pathlib import Path
 from subprocess import run
 from sys import executable
-from pathlib import Path
 
 
-def create_virtual_environment():
-    virtual_environment_directory = Path(".venv")
-    if not virtual_environment_directory.exists():
-        run([executable, "-m", "venv", str(virtual_environment_directory)])
+def create_virtual_env() -> None:
+    virtual_env_dir = Path(".venv")
+    if not virtual_env_dir.exists():
+        run([executable, "-m", "venv", str(virtual_env_dir)])
         python_executable = (
-            virtual_environment_directory
-            / ("Scripts" if name == "nt" else "bin")
-            / "python"
+            virtual_env_dir / ("Scripts" if name == "nt" else "bin") / "python"
         )
         run(
             [
@@ -26,4 +24,4 @@ def create_virtual_environment():
 
 
 if __name__ == "__main__":
-    create_virtual_environment()
+    create_virtual_env()

@@ -1,9 +1,9 @@
 from os import name
-from subprocess import run
 from pathlib import Path
+from subprocess import run
 
 
-def start_uvicorn():
+def start_uvicorn() -> None:
     run(
         [
             str(Path(".venv") / ("Scripts" if name == "nt" else "bin") / "python"),

@@ -1,31 +1,71 @@
-<script setup lang="ts">
-import ninja from "@/assets/ninja.svg";
-import InfoMsg from "@/components/InfoMsg.vue";
-</script>
-
 <template>
-  <div class="center">
-    <a href="/">
-      <img src="/img/squid.svg" class="logo blue-shadow" />
-    </a>
-    <img :src="ninja" class="logo red-shadow" />
-    <InfoMsg title="VALI TOP" />
+  <header>
+    <img
+      src="@/assets/menu-button.svg"
+      @click="isShowMenu = !isShowMenu"
+      class="menu-button"
+    />
+    <Logo />
+    <nav class="menu" v-if="isShowMenu">
+      <RouterLink to="/chat">Chat</RouterLink>
+    </nav>
+  </header>
+  <div class="contents">
+    <RouterView />
   </div>
 </template>
 
+<script setup lang="ts">
+import Logo from "@/components/modules/Logo.vue";
+import { ref } from "vue";
+
+const isShowMenu = ref(false);
+</script>
+
+<style>
+body {
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  background-color: white;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+</style>
+
 <style scoped>
-.center {
+header {
+  border-bottom: silver 1px solid;
+  height: 50px;
+}
+
+.menu-button {
+  width: 20px;
+  margin: 15px;
+}
+
+.menu {
+  width: 150px;
+  position: absolute;
+  background-color: white;
+  margin-top: 5px;
+  padding: 10px;
+  border-right: silver 1px solid;
+}
+
+.menu a {
+  display: block;
+  padding: 5px;
+}
+
+.contents {
   text-align: center;
-}
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  transition: filter 300ms;
-}
-.logo.blue-shadow:hover {
-  filter: drop-shadow(0 0 2em blue);
-}
-.logo.red-shadow:hover {
-  filter: drop-shadow(0 0 2em red);
 }
 </style>
