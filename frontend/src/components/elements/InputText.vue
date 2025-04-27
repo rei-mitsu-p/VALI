@@ -5,7 +5,7 @@
     :placeholder="placeholder"
     :maxlength="maxlength"
     :disabled="disabled"
-    :style="customStyle"
+    :style="style"
     @input="
       $emit('update:modelValue', ($event.target as HTMLInputElement).value)
     "
@@ -17,7 +17,7 @@ defineProps<{
   modelValue: string;
   placeholder: string;
   maxlength: number;
-  customStyle?: string;
+  style?: string;
   disabled?: boolean;
 }>();
 </script>

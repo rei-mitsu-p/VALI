@@ -8,7 +8,7 @@
     </div>
     <div class="chat-form">
       <BaseTextArea
-        v-model="input"
+        v-model="message"
         placeholder="Enter message"
         :maxlength="200"
       />
@@ -30,7 +30,7 @@ const props = defineProps<{
 }>();
 
 const messageArea = ref<HTMLDivElement | null>(null);
-const input = ref("");
+const message = ref("");
 const messages = ref<string[]>([]);
 
 onMounted(() => {
@@ -50,12 +50,12 @@ onMounted(() => {
 });
 
 const sendMessage = () => {
-  if (input.value.trim()) {
+  if (message.value.trim()) {
     chatSocket.emit("send_message", {
-      message: input.value,
+      message: message.value,
       roomName: props.roomName,
     });
-    input.value = "";
+    message.value = "";
   }
 };
 
@@ -89,7 +89,7 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
-.message-area div {
+.message-area > div {
   padding: 5px;
   border-bottom: silver solid 1px;
 }

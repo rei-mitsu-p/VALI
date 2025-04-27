@@ -4,7 +4,7 @@
     :placeholder="placeholder"
     :maxlength="maxlength"
     :disabled="disabled"
-    :style="customStyle"
+    :style="style"
   ></textarea>
 </template>
 
@@ -17,8 +17,8 @@ const props = defineProps<{
   modelValue: string;
   placeholder: string;
   maxlength: number;
-  customStyle?: string;
   disabled?: boolean;
+  style?: string;
 }>();
 
 const text = computed({

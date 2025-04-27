@@ -1,6 +1,6 @@
 <template>
-  <ErrorModal
-    :isError="isError"
+  <Modal
+    v-if="isError"
     title="Error"
     :messages="errorMessages"
     @close="
@@ -39,7 +39,7 @@ import apiClient from "@/api/client";
 import BaseButton from "@/components/elements/BaseButton.vue";
 import InputText from "@/components/elements/InputText.vue";
 import CustomSlotTable from "@/components/modules/CustomSlotTable.vue";
-import ErrorModal from "@/components/modules/ErrorModal.vue";
+import Modal from "@/components/modules/Modal.vue";
 import { MESSAGE } from "@/constants/constants";
 import { onMounted, ref } from "vue";
 
@@ -61,10 +61,10 @@ onMounted(async () => {
 });
 
 const startIfValid = () => {
-  if (name.value === "") {
+  if (name.value.trim() === "") {
     errorMessages.value.push(MESSAGE.format(MESSAGE.REQUIRED, "Name"));
   }
-  if (roomName.value === "") {
+  if (roomName.value.trim() === "") {
     errorMessages.value.push(MESSAGE.format(MESSAGE.REQUIRED, "Room Name"));
   }
   if (errorMessages.value.length) {
@@ -85,9 +85,9 @@ const startIfValid = () => {
 
 input {
   width: 100%;
-  height: 25px;
+  height: 30px;
   margin-bottom: 10px;
-  padding: 0 12px;
+  padding: 5px;
   font-size: 16px;
   box-sizing: border-box;
 }

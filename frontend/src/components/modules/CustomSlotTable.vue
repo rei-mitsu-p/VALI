@@ -32,22 +32,22 @@ defineProps<{
 <style scoped>
 table {
   border-collapse: collapse;
-  box-shadow: 0 1px 2px gray;
+  box-shadow: 0 0 1px gray;
+  word-break: break-all;
 }
 
 th,
 td {
   text-align: left;
-  padding: 5px 10px;
+  padding: 5px;
   border-bottom: 1px solid gray;
-  word-break: break-all;
 }
 
 th {
   background-color: lightgray;
 }
 
-tr:hover {
+tbody tr:hover {
   background-color: whitesmoke;
 }
 </style>

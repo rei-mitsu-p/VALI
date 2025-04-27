@@ -1,7 +1,15 @@
 <template>
   <h1>Chat</h1>
   <div v-if="!isStarted" class="enter-room">
-    <EnterRoom @start="start" />
+    <EnterRoom
+      @start="
+        (name: string, roomName: string) => {
+          dispName = name;
+          dispRoomName = roomName;
+          isStarted = true;
+        }
+      "
+    />
   </div>
   <div v-if="isStarted" class="chat-room">
     <ChatRoom :name="dispName" :roomName="dispRoomName" />
@@ -16,12 +24,6 @@ import { ref } from "vue";
 const isStarted = ref(false);
 const dispName = ref("");
 const dispRoomName = ref("");
-
-const start = (name: string, roomName: string) => {
-  dispName.value = name;
-  dispRoomName.value = roomName;
-  isStarted.value = true;
-};
 </script>
 
 <style scoped>

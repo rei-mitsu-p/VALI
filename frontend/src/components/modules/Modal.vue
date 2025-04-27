@@ -1,11 +1,11 @@
 <template>
-  <div v-if="isError" class="modal-overlay">
+  <div class="modal-overlay">
     <div class="modal">
       <div v-if="title" class="modal-header">
         <span class="modal-title">{{ title }}</span>
       </div>
       <button class="modal-close" @click="$emit('close')">×</button>
-      <ul v-if="messages.length">
+      <ul>
         <li v-for="message in messages" :key="message">
           {{ message }}
         </li>
@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 defineProps<{
-  isError: boolean;
   title?: string;
   messages: Array<string>;
 }>();
@@ -54,6 +53,10 @@ defineProps<{
     transform: translateY(0);
   }
 }
+.modal-title {
+  font-size: 16px;
+  font-weight: bold;
+}
 .modal-close {
   position: absolute;
   top: 3px;
@@ -71,21 +74,13 @@ defineProps<{
 .modal-header + .modal-close {
   top: 10px;
 }
-.modal-header {
-  display: block;
-  width: 95%;
-}
-.modal-title {
-  font-size: 16px;
-  font-weight: bold;
-}
 
 ul {
   max-height: 350px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 ul::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 ul::-webkit-scrollbar-track {
   border-radius: 3px;

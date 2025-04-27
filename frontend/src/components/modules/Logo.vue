@@ -11,11 +11,10 @@
 <style scoped>
 .logo {
   position: relative;
-  display: inline-block;
 }
 .logo img {
-  width: 30px;
-  margin: 10px 0;
+  width: 25px;
+  vertical-align: middle;
 }
 .logo .blue-shadow,
 .logo .red-shadow {

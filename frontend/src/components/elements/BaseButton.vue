@@ -2,7 +2,7 @@
   <button
     type="button"
     @click="$emit('clicked')"
-    :style="customStyle"
+    :style="style"
     :disabled="disabled"
   >
     <slot></slot>
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ customStyle?: string; disabled?: boolean }>();
+defineProps<{ style?: string; disabled?: boolean }>();
 </script>
 
 <style scoped>
@@ -18,7 +18,7 @@ button {
   background-color: royalblue;
   color: white;
   font-size: 16px;
-  padding: 5px 10px;
+  padding: 5px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -30,6 +30,6 @@ button:hover {
 }
 
 button:focus {
-  outline: none;
+  outline: navy solid 1px;
 }
 </style>

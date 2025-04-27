@@ -6,10 +6,11 @@
       class="menu-button"
     />
     <Logo />
-    <nav class="menu" v-if="isShowMenu">
-      <RouterLink to="/chat">Chat</RouterLink>
-    </nav>
   </header>
+  <nav class="menu" v-if="isShowMenu">
+    <RouterLink to="/chat">Chat</RouterLink>
+    <RouterLink to="/minesweeper">Minesweeper</RouterLink>
+  </nav>
   <div class="contents">
     <RouterView />
   </div>
@@ -42,27 +43,29 @@ a {
 
 <style scoped>
 header {
+  display: flex;
+  align-items: center;
   border-bottom: silver 1px solid;
-  height: 50px;
+  height: 40px;
 }
 
 .menu-button {
   width: 20px;
-  margin: 15px;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .menu {
   width: 150px;
   position: absolute;
   background-color: white;
-  margin-top: 5px;
-  padding: 10px;
   border-right: silver 1px solid;
+  word-break: break-all;
 }
 
 .menu a {
-  display: block;
-  padding: 5px;
+  display: flex;
+  padding: 10px;
 }
 
 .contents {
