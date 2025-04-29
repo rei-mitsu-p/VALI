@@ -15,7 +15,7 @@
       "request": "launch",
       "cwd": "${workspaceFolder}/backend",
       "module": "uvicorn",
-      "args": ["app.main:app", "--reload"]
+      "args": ["app.main:app", "--reload", "--http", "httptools"]
     }
   ],
   "compounds": [

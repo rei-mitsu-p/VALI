@@ -34,5 +34,6 @@ defineProps<{
 }
 .opened {
   background-color: lightgrey;
+  cursor: default;
 }
 </style>

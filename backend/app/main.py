@@ -2,7 +2,7 @@ import socketio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.events.chat_event import ChatNamespace
+from app.events.chat_event import ChatEvent
 from app.routes.chat_router import router as chat_router
 from app.settings import FRONT_URL
 from app.socketio_instance import socketio_instance
@@ -23,6 +23,6 @@ async def check_health() -> dict[str, str]:
 
 fastapi_app.include_router(chat_router, prefix="/chat", tags=["CHAT"])
 
-socketio_instance.register_namespace(ChatNamespace("/chat"))
+socketio_instance.register_namespace(ChatEvent("/chat"))
 
 app = socketio.ASGIApp(socketio_instance, other_asgi_app=fastapi_app)

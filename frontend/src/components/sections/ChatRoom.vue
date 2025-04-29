@@ -39,8 +39,8 @@ onMounted(() => {
   }
   chatSocket.emit("set_name", { name: props.name });
   chatSocket.emit("enter_room", { roomName: props.roomName });
-  chatSocket.on("message", (data) => {
-    messages.value.push(`${getCurrentHHmm()} ${data}`);
+  chatSocket.on("message", (message) => {
+    messages.value.push(`${getCurrentHHmm()} ${message}`);
     nextTick(() => {
       if (messageArea.value) {
         messageArea.value.scrollTop = messageArea.value.scrollHeight;
@@ -83,7 +83,7 @@ onUnmounted(() => {
   overflow-y: auto;
   padding: 5px;
   background-color: whitesmoke;
-  margin-bottom: 10px;
+  margin: 5px 0;
   border-radius: 3px;
   word-break: break-all;
   box-sizing: border-box;

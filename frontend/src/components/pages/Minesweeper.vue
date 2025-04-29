@@ -1,17 +1,20 @@
 <template>
-  <div class="menu">
+  <RightMenu>
     <span>{{ BOMB_SYMBOL }}: {{ bombCount - flagCount }}</span>
     <Timer ref="timer" />
     <BaseButton
       v-for="(_, level) in LEVEL_SETTINGS"
       :key="level"
       @clicked="selectLevel(level)"
-      :style="selectedLevel == level ? 'background-color: navy' : ''"
+      :isSelected="selectedLevel == level"
       >{{ level }}</BaseButton
     >
-  </div>
+  </RightMenu>
   <div class="wrapper">
-    <div class="grid-container" :style="{ '--grid-size': gridSize }">
+    <div
+      class="grid-container"
+      :style="{ '--grid-size': gridSize, '--grid-font-size': fontSize }"
+    >
       <MCell
         v-for="(cell, index) in map.flat()"
         :key="index"
@@ -20,7 +23,6 @@
         :bombSymbol="BOMB_SYMBOL"
         @clicked="open(cell)"
         @rightClicked="toggleFlag(cell)"
-        :style="{ 'font-size': fontSize }"
       />
     </div>
   </div>
@@ -29,6 +31,7 @@
 <script setup lang="ts">
 import BaseButton from "@/components/elements/BaseButton.vue";
 import MCell from "@/components/elements/minesweeper/MCell.vue";
+import RightMenu from "@/components/layouts/RightMenu.vue";
 import Timer from "@/components/modules/Timer.vue";
 import { Cell } from "@/types/minesweeper/cell";
 import { onMounted, ref } from "vue";
@@ -143,12 +146,16 @@ const open = (cell: Cell) => {
   openedCount.value++;
 
   if (adjacentBombCount === 0) {
-    adjacentCells.forEach((cell) => !cell.isOpened && open(cell));
+    adjacentCells.forEach((cell) => {
+      if (!cell.isOpened) {
+        open(cell);
+      }
+    });
   } else {
     cell.contents = adjacentBombCount.toString();
   }
 
-  if (gridSize.value * gridSize.value === openedCount.value + bombCount.value) {
+  if (gridSize.value ** 2 === openedCount.value + bombCount.value) {
     success();
   }
 };
@@ -184,14 +191,6 @@ const success = () => {
 </script>
 
 <style scoped>
-.menu {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  right: 10px;
-  gap: 5px;
-}
-
 .wrapper {
   width: 600px;
   height: 600px;
@@ -205,5 +204,6 @@ const success = () => {
   height: 100%;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   grid-template-rows: repeat(var(--grid-size), 1fr);
+  font-size: var(--grid-font-size);
 }
 </style>
