@@ -34,11 +34,11 @@ table {
   border-collapse: collapse;
   box-shadow: 0 0 1px gray;
   word-break: break-all;
+  text-align: left;
 }
 
 th,
 td {
-  text-align: left;
   padding: 5px;
   border-bottom: 1px solid gray;
 }

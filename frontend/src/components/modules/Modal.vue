@@ -1,10 +1,10 @@
 <template>
   <div class="modal-overlay">
     <div class="modal">
-      <div v-if="title" class="modal-header">
-        <span class="modal-title">{{ title }}</span>
+      <div class="modal-header">
+        <span v-if="title" class="modal-title">{{ title }}</span>
+        <button class="modal-close" @click="$emit('close')">×</button>
       </div>
-      <button class="modal-close" @click="$emit('close')">×</button>
       <ul>
         <li v-for="message in messages" :key="message">
           {{ message }}
@@ -53,14 +53,17 @@ defineProps<{
     transform: translateY(0);
   }
 }
+.modal-header {
+  height: 15px;
+}
 .modal-title {
   font-size: 16px;
   font-weight: bold;
 }
 .modal-close {
   position: absolute;
-  top: 3px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   background: transparent;
   border: none;
   font-size: 30px;
@@ -71,13 +74,11 @@ defineProps<{
 .modal-close:hover {
   color: crimson;
 }
-.modal-header + .modal-close {
-  top: 10px;
-}
 
 ul {
   max-height: 350px;
   overflow-y: auto;
+  padding: 0;
 }
 ul::-webkit-scrollbar {
   width: 7px;

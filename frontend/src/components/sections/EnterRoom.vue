@@ -16,15 +16,14 @@
       :maxlength="20"
     />
     <BaseButton @clicked="startIfValid">Start</BaseButton>
-    <div class="room-list">
+    <div v-if="roomNames.length" class="room-list">
       <strong>Room List</strong>
       <CustomSlotTable
-        v-if="roomnames.length"
         :columns="[
           { key: 'roomName', label: 'Room Name' },
           { key: 'setRoomName', label: '' },
         ]"
-        :rows="roomnames.map((name) => ({ roomName: name }))"
+        :rows="roomNames.map((roomName) => ({ roomName: roomName }))"
       >
         <template #setRoomName="{ row }">
           <BaseButton @clicked="roomName = row.roomName">Set</BaseButton>
@@ -53,11 +52,11 @@ const errorMessages = ref<Array<string>>([]);
 const name = ref("");
 const roomName = ref("");
 
-const roomnames = ref<Array<string>>([]);
+const roomNames = ref<Array<string>>([]);
 
 onMounted(async () => {
   const response = await apiClient.get("/chat/roomnames");
-  roomnames.value = response.data.result;
+  roomNames.value = response.data.result;
 });
 
 const startIfValid = () => {

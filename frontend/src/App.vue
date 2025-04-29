@@ -10,6 +10,7 @@
   <nav class="menu" v-if="isShowMenu">
     <RouterLink to="/chat">Chat</RouterLink>
     <RouterLink to="/minesweeper">Minesweeper</RouterLink>
+    <RouterLink to="/slidepuzzle">SlidePuzzle</RouterLink>
   </nav>
   <div class="contents">
     <RouterView />
@@ -32,7 +33,6 @@ body {
   line-height: 1.5;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 a {

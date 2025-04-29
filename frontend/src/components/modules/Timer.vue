@@ -1,19 +1,19 @@
 <template>
   <span>
-    {{ secondsToHhmmss(timer) }}
+    {{ secondsToHHmmss(seconds) }}
   </span>
 </template>
 
 <script setup lang="ts">
-import { secondsToHhmmss } from "@/utils/date-utils";
+import { secondsToHHmmss } from "@/utils/date-utils";
 import { ref } from "vue";
 
-const timer = ref(0);
+const seconds = ref(0);
 const timerId = ref(0);
 
 const start = () => {
   timerId.value = setInterval(() => {
-    timer.value++;
+    seconds.value++;
   }, 1000);
 };
 
@@ -22,7 +22,7 @@ const stop = () => {
 };
 
 const reset = () => {
-  timer.value = 0;
+  seconds.value = 0;
 };
 
 defineExpose<{ start: () => void; stop: () => void; reset: () => void }>({

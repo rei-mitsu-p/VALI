@@ -11,6 +11,8 @@ def start_uvicorn() -> None:
             "uvicorn",
             "app.main:app",
             "--reload",
+            "--http",
+            "httptools",
         ]
     )
 

@@ -3,6 +3,7 @@
     type="button"
     @click="$emit('clicked')"
     :style="style"
+    :class="{ selected: isSelected }"
     :disabled="disabled"
   >
     <slot></slot>
@@ -10,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ style?: string; disabled?: boolean }>();
+defineProps<{ style?: string; isSelected?: boolean; disabled?: boolean }>();
 </script>
 
 <style scoped>
@@ -23,6 +24,10 @@ button {
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+}
+
+button.selected {
+  background-color: navy;
 }
 
 button:hover {

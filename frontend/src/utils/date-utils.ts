@@ -5,7 +5,7 @@ const getCurrentHHmm = (): string => {
     .join(":");
 };
 
-const secondsToHhmmss = (seconds: number): string => {
+const secondsToHHmmss = (seconds: number): string => {
   return [
     Math.floor(seconds / 3600),
     Math.floor((seconds % 3600) / 60),
@@ -15,4 +15,4 @@ const secondsToHhmmss = (seconds: number): string => {
     .join(":");
 };
 
-export { getCurrentHHmm, secondsToHhmmss };
+export { getCurrentHHmm, secondsToHHmmss };

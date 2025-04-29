@@ -39,7 +39,6 @@
   opacity: 1;
   animation: throwShuriken 0.5s linear infinite;
 }
-
 @keyframes throwShuriken {
   0% {
     transform: translate(-50%, -50%) scale(1) rotate(0deg);
