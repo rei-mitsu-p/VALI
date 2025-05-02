@@ -1,11 +1,17 @@
 <template>
   <RightMenu>
-    <span>{{ BOMB_SYMBOL }}: {{ bombCount - flagCount }}</span>
+    <span
+      >{{ BOMB_SYMBOL }}:
+      {{ LEVEL_SETTINGS[selectedLevel].bombCount - flagCount }}</span
+    >
     <Timer ref="timer" />
     <BaseButton
       v-for="(_, level) in LEVEL_SETTINGS"
       :key="level"
-      @clicked="selectLevel(level)"
+      @clicked="
+        selectedLevel = level;
+        init();
+      "
       :isSelected="selectedLevel == level"
       >{{ level }}</BaseButton
     >
@@ -13,7 +19,10 @@
   <div class="wrapper">
     <div
       class="grid-container"
-      :style="{ '--grid-size': gridSize, '--grid-font-size': fontSize }"
+      :style="{
+        '--grid-size': LEVEL_SETTINGS[selectedLevel].gridSize,
+        '--grid-font-size': LEVEL_SETTINGS[selectedLevel].fontSize,
+      }"
     >
       <MCell
         v-for="(cell, index) in map.flat()"
@@ -46,9 +55,6 @@ const BOMB_SYMBOL = "💣";
 const FLAG_SYMBOL = "🚩";
 
 const selectedLevel = ref<keyof typeof LEVEL_SETTINGS>("Easy");
-const bombCount = ref(LEVEL_SETTINGS[selectedLevel.value].bombCount);
-const gridSize = ref(LEVEL_SETTINGS[selectedLevel.value].gridSize);
-const fontSize = ref(LEVEL_SETTINGS[selectedLevel.value].fontSize);
 
 const isStarted = ref(false);
 const isFailed = ref(false);
@@ -64,8 +70,13 @@ const timer = ref(Timer);
 const init = () => {
   timer.value?.stop();
   timer.value?.reset();
-  map.value = Array.from({ length: gridSize.value }, (_, y) =>
-    Array.from({ length: gridSize.value }, (_, x) => new Cell(x, y))
+  map.value = Array.from(
+    { length: LEVEL_SETTINGS[selectedLevel.value].gridSize },
+    (_, y) =>
+      Array.from(
+        { length: LEVEL_SETTINGS[selectedLevel.value].gridSize },
+        (_, x) => new Cell(x, y)
+      )
   );
 
   placeBombs(map.value.flat());
@@ -80,19 +91,11 @@ const init = () => {
 onMounted(init);
 
 const placeBombs = (cells: Cell[]) => {
-  for (let i = 0; i < bombCount.value; i++) {
+  for (let i = 0; i < LEVEL_SETTINGS[selectedLevel.value].bombCount; i++) {
     const index = Math.floor(Math.random() * cells.length);
     cells[index].hasBomb = true;
     cells.splice(index, 1);
   }
-};
-
-const selectLevel = (level: keyof typeof LEVEL_SETTINGS) => {
-  selectedLevel.value = level;
-  gridSize.value = LEVEL_SETTINGS[level].gridSize;
-  bombCount.value = LEVEL_SETTINGS[level].bombCount;
-  fontSize.value = LEVEL_SETTINGS[level].fontSize;
-  init();
 };
 
 const getAdjacentCells = (cell: Cell): Cell[] => {
@@ -155,7 +158,10 @@ const open = (cell: Cell) => {
     cell.contents = adjacentBombCount.toString();
   }
 
-  if (gridSize.value ** 2 === openedCount.value + bombCount.value) {
+  if (
+    LEVEL_SETTINGS[selectedLevel.value].gridSize ** 2 ===
+    openedCount.value + LEVEL_SETTINGS[selectedLevel.value].bombCount
+  ) {
     success();
   }
 };

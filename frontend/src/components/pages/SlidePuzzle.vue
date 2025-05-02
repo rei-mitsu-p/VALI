@@ -6,17 +6,19 @@
       :isSelected="selectedLevel == level"
       @clicked="
         selectedLevel = level;
-        gridSize = LEVEL_SETTINGS[level].gridSize;
         initializePuzzle();
       "
       >{{ level }}</BaseButton
     >
   </RightMenu>
-  <div class="puzzle-container" :style="{ '--repeat-size': gridSize }">
+  <div
+    class="puzzle-container"
+    :style="{ '--repeat-size': LEVEL_SETTINGS[selectedLevel].gridSize }"
+  >
     <Tile
       v-for="(tile, index) in tiles"
       :key="index"
-      :gridSize="gridSize"
+      :gridSize="LEVEL_SETTINGS[selectedLevel].gridSize"
       :tile="tile"
       @clicked="moveTile(index)"
     ></Tile>
@@ -37,12 +39,12 @@ const LEVEL_SETTINGS = {
 } as const;
 
 const selectedLevel = ref<keyof typeof LEVEL_SETTINGS>("Easy");
-const gridSize = ref(LEVEL_SETTINGS[selectedLevel.value].gridSize);
 const tiles = ref<number[]>([]);
 
 const isSuccess = computed(() => {
   return tiles.value.every(
-    (tile, index) => tile === (index + 1) % gridSize.value ** 2
+    (tile, index) =>
+      tile === (index + 1) % LEVEL_SETTINGS[selectedLevel.value].gridSize ** 2
   );
 });
 
@@ -52,8 +54,8 @@ onMounted(() => {
 
 const initializePuzzle = () => {
   tiles.value = Array.from(
-    { length: gridSize.value ** 2 },
-    (_, i) => (i + 1) % gridSize.value ** 2
+    { length: LEVEL_SETTINGS[selectedLevel.value].gridSize ** 2 },
+    (_, i) => (i + 1) % LEVEL_SETTINGS[selectedLevel.value].gridSize ** 2
   );
   shufflePuzzle(tiles.value, 1000);
 };
@@ -71,20 +73,26 @@ const shufflePuzzle = (tiles: number[], count: number) => {
 };
 
 const getMovableIndices = (emptyIndex: number): number[] => {
-  const row = Math.floor(emptyIndex / gridSize.value);
-  const col = emptyIndex % gridSize.value;
+  const row = Math.floor(
+    emptyIndex / LEVEL_SETTINGS[selectedLevel.value].gridSize
+  );
+  const col = emptyIndex % LEVEL_SETTINGS[selectedLevel.value].gridSize;
   const movableIndices: number[] = [];
 
   if (row > 0) {
-    movableIndices.push(emptyIndex - gridSize.value);
+    movableIndices.push(
+      emptyIndex - LEVEL_SETTINGS[selectedLevel.value].gridSize
+    );
   }
-  if (row < gridSize.value - 1) {
-    movableIndices.push(emptyIndex + gridSize.value);
+  if (row < LEVEL_SETTINGS[selectedLevel.value].gridSize - 1) {
+    movableIndices.push(
+      emptyIndex + LEVEL_SETTINGS[selectedLevel.value].gridSize
+    );
   }
   if (col > 0) {
     movableIndices.push(emptyIndex - 1);
   }
-  if (col < gridSize.value - 1) {
+  if (col < LEVEL_SETTINGS[selectedLevel.value].gridSize - 1) {
     movableIndices.push(emptyIndex + 1);
   }
   return movableIndices;

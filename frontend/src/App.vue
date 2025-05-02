@@ -11,6 +11,7 @@
     <RouterLink to="/chat">Chat</RouterLink>
     <RouterLink to="/minesweeper">Minesweeper</RouterLink>
     <RouterLink to="/slidepuzzle">SlidePuzzle</RouterLink>
+    <RouterLink to="/numberplace">NumberPlace</RouterLink>
   </nav>
   <div class="contents">
     <RouterView />
